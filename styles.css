@@ -65,8 +65,15 @@ h2 {
 }
 
 a {
-    color: #e8491d;
+    color: #4a90e2; /* 一个柔和的蓝色 */
+    text-decoration: none; /* 移除下划线 */
 }
+
+a:hover {
+    color: #2c3e50; /* 悬停时变为深色 */
+    text-decoration: underline; /* 悬停时添加下划线 */
+}
+
 
 footer {
     background: #35424a;
