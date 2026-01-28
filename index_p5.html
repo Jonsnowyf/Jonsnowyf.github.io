@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yifan Wang - Economics PhD Candidate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Anton&family=Barlow+Condensed:wght@400;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --p5-red: #ff0000;
+            --p5-dark-red: #cc0000;
+            --p5-black: #0a0a0a;
+            --p5-white: #ffffff;
+            --p5-grey: #1a1a1a;
+            --p5-light-grey: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Barlow Condensed', sans-serif;
+            background: var(--p5-black);
+            color: var(--p5-white);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Halftone Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(255,0,0,0.015) 1px, transparent 1px);
+            background-size: 4px 4px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-line {
+            position: absolute;
+            background: var(--p5-red);
+            opacity: 0.08;
+        }
+
+        .bg-line:nth-child(1) { width: 200%; height: 2px; top: 15%; left: -50%; transform: rotate(-12deg); animation: pulse 4s ease-in-out infinite; }
+        .bg-line:nth-child(2) { width: 200%; height: 3px; top: 35%; left: -50%; transform: rotate(8deg); animation: pulse 4s ease-in-out infinite 1s; }
+        .bg-line:nth-child(3) { width: 200%; height: 1px; top: 55%; left: -50%; transform: rotate(-5deg); animation: pulse 4s ease-in-out infinite 2s; }
+        .bg-line:nth-child(4) { width: 200%; height: 2px; top: 75%; left: -50%; transform: rotate(10deg); animation: pulse 4s ease-in-out infinite 3s; }
+        .bg-line:nth-child(5) { width: 200%; height: 1px; top: 90%; left: -50%; transform: rotate(-3deg); animation: pulse 4s ease-in-out infinite 0.5s; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.05; }
+            50% { opacity: 0.15; }
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--p5-red);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: slideOut 0.8s ease-in-out 1.8s forwards;
+        }
+
+        .loading-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: var(--p5-white);
+            animation: loadPulse 0.2s ease-in-out infinite alternate;
+            transform: skewX(-5deg);
+        }
+
+        @keyframes loadPulse {
+            from { transform: skewX(-5deg) scale(1); }
+            to { transform: skewX(5deg) scale(1.02); }
+        }
+
+        @keyframes slideOut {
+            to { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+        }
+
+        /* Navigation */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 500;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 3px solid var(--p5-red);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--p5-red);
+            text-decoration: none;
+            transform: skewX(-5deg);
+            letter-spacing: 0.05em;
+            padding: 1rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 1.2rem 1.5rem;
+            color: var(--p5-white);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            position: relative;
+            transform: skewX(-3deg);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--p5-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--p5-red);
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--p5-red);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 100px 2rem 2rem;
+            overflow: hidden;
+        }
+
+        .hero-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .hero-shape {
+            position: absolute;
+            animation: floatShape 15s ease-in-out infinite;
+        }
+
+        .hero-shape-1 {
+            top: 15%;
+            left: 8%;
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--p5-red);
+            transform: rotate(45deg);
+            animation-delay: 0s;
+        }
+
+        .hero-shape-2 {
+            top: 25%;
+            right: 12%;
+            width: 60px;
+            height: 60px;
+            background: var(--p5-red);
+            opacity: 0.3;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: -5s;
+        }
+
+        .hero-shape-3 {
+            bottom: 25%;
+            left: 12%;
+            width: 100px;
+            height: 30px;
+            background: var(--p5-red);
+            opacity: 0.2;
+            transform: skewX(-20deg);
+            animation-delay: -10s;
+        }
+
+        .hero-shape-4 {
+            bottom: 20%;
+            right: 8%;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--p5-red);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation-delay: -7s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.5; }
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            animation: heroIn 1s ease-out 2s both;
+        }
+
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(80px) skewY(5deg); }
+            to { opacity: 1; transform: translateY(0) skewY(0); }
+        }
+
+        .hero-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            color: var(--p5-white);
+            text-shadow: 6px 6px 0 var(--p5-red), -2px -2px 0 var(--p5-red);
+            letter-spacing: 0.08em;
+            transform: skewX(-5deg);
+            line-height: 1;
+            animation: nameGlitch 8s ease-in-out infinite;
+        }
+
+        @keyframes nameGlitch {
+            0%, 92%, 100% { transform: skewX(-5deg); }
+            93% { transform: skewX(-8deg) translateX(-3px); }
+            95% { transform: skewX(-2deg) translateX(3px); }
+            97% { transform: skewX(-5deg); }
+        }
+
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: var(--p5-red);
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            margin-top: 1.5rem;
+            transform: skewX(-3deg);
+            animation: titleIn 1s ease-out 2.3s both;
+        }
+
+        @keyframes titleIn {
+            from { opacity: 0; transform: translateX(-50px) skewX(-10deg); }
+            to { opacity: 1; transform: translateX(0) skewX(-3deg); }
+        }
+
+        .hero-institution {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.2rem;
+            color: #888;
+            margin-top: 1rem;
+            letter-spacing: 0.2em;
+            animation: titleIn 1s ease-out 2.5s both;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s ease-in-out infinite 3s;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--p5-red);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--p5-red);
+            border-radius: 2px;
+            animation: scrollDot 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes scrollDot {
+            0%, 100% { top: 6px; opacity: 1; }
+            50% { top: 20px; opacity: 0.3; }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--p5-white);
+            transform: skewX(-5deg);
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            color: var(--p5-red);
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--p5-red);
+            transform: skewX(10deg);
+        }
+
+        /* About Section */
+        #about {
+            background: linear-gradient(180deg, var(--p5-black) 0%, var(--p5-grey) 100%);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .about-text {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #ccc;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text a {
+            color: var(--p5-red);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .about-text a:hover {
+            border-bottom-color: var(--p5-red);
+        }
+
+        .status-card {
+            background: var(--p5-red);
+            padding: 2rem;
+            transform: skewX(-3deg) rotate(-1deg);
+            position: relative;
+        }
+
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid var(--p5-white);
+            z-index: -1;
+        }
+
+        .status-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--p5-black);
+            margin-bottom: 1rem;
+            transform: skewX(3deg);
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 2px solid rgba(0,0,0,0.2);
+            transform: skewX(3deg);
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            color: var(--p5-black);
+            font-size: 0.9rem;
+        }
+
+        .status-value {
+            color: var(--p5-white);
+            font-weight: 700;
+        }
+
+        .cv-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: transparent;
+            border: 2px solid var(--p5-red);
+            color: var(--p5-white);
+            padding: 1rem 2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transform: skewX(-5deg);
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+
+        .cv-link:hover {
+            background: var(--p5-red);
+            color: var(--p5-black);
+            transform: skewX(-5deg) translateY(-3px);
+        }
+
+        /* Research Section */
+        #research {
+            background: var(--p5-black);
+        }
+
+        .research-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .research-item {
+            background: var(--p5-grey);
+            border-left: 4px solid var(--p5-red);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            transform: skewX(-1deg);
+        }
+
+        .research-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--p5-red);
+            transition: width 0.4s ease;
+            z-index: 0;
+        }
+
+        .research-item:hover {
+            transform: skewX(-1deg) translateX(10px);
+        }
+
+        .research-item:hover::before {
+            width: 100%;
+        }
+
+        .research-item > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .research-item:hover .paper-title,
+        .research-item:hover .abstract-text {
+            color: var(--p5-black);
+        }
+
+        .paper-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .paper-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--p5-white);
+            transform: skewX(1deg);
+            transition: color 0.3s ease;
+        }
+
+        .pdf-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--p5-red);
+            color: var(--p5-white);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            transform: skewX(-5deg);
+            transition: all 0.3s ease;
+        }
+
+        .pdf-badge:hover {
+            background: var(--p5-white);
+            color: var(--p5-black);
+        }
+
+        .abstract-text {
+            color: #999;
+            font-size: 1rem;
+            line-height: 1.7;
+            transform: skewX(1deg);
+            transition: color 0.3s ease;
+        }
+
+        .abstract-text strong {
+            color: var(--p5-red);
+        }
+
+        .research-item:hover .abstract-text strong {
+            color: var(--p5-black);
+        }
+
+        /* Education Section */
+        #education {
+            background: linear-gradient(180deg, var(--p5-grey) 0%, var(--p5-black) 100%);
+        }
+
+        .education-timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .education-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--p5-red);
+        }
+
+        .education-item {
+            position: relative;
+            padding: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 16px;
+            height: 16px;
+            background: var(--p5-red);
+            border: 3px solid var(--p5-black);
+        }
+
+        .education-year {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--p5-red);
+            margin-bottom: 0.3rem;
+        }
+
+        .education-degree {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            color: var(--p5-white);
+            margin-bottom: 0.3rem;
+        }
+
+        .education-school {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        /* Publications Section */
+        #publications {
+            background: var(--p5-black);
+        }
+
+        .coming-soon {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: var(--p5-grey);
+            text-align: center;
+            padding: 3rem;
+            border: 3px dashed var(--p5-grey);
+            transform: skewX(-3deg);
+        }
+
+        /* Photography Link Section */
+        .photography-banner {
+            background: var(--p5-red);
+            padding: 4rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photography-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 15px,
+                rgba(0,0,0,0.1) 15px,
+                rgba(0,0,0,0.1) 30px
+            );
+        }
+
+        .photography-link {
+            display: inline-block;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: var(--p5-black);
+            text-decoration: none;
+            transform: skewX(-5deg);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+            padding: 1rem 3rem;
+            background: var(--p5-white);
+        }
+
+        .photography-link:hover {
+            transform: skewX(-5deg) scale(1.05);
+            box-shadow: 10px 10px 0 var(--p5-black);
+        }
+
+        .photography-link i {
+            margin-right: 1rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--p5-grey);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--p5-black);
+            border: 2px solid var(--p5-light-grey);
+            transition: all 0.3s ease;
+            transform: skewX(-2deg);
+        }
+
+        .contact-item:hover {
+            border-color: var(--p5-red);
+            transform: skewX(-2deg) translateY(-5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--p5-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            color: var(--p5-white);
+            font-size: 1.2rem;
+            transform: rotate(-45deg);
+        }
+
+        .contact-info {
+            transform: skewX(2deg);
+        }
+
+        .contact-label {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            color: var(--p5-red);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-value {
+            color: var(--p5-white);
+            font-size: 1rem;
+        }
+
+        .contact-value a {
+            color: var(--p5-white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: var(--p5-red);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--p5-black);
+            border-top: 4px solid var(--p5-red);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        footer span {
+            color: var(--p5-red);
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Corner Decorations */
+        .corner {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .corner.tl { top: 15px; left: 15px; border-top: 3px solid var(--p5-red); border-left: 3px solid var(--p5-red); }
+        .corner.tr { top: 15px; right: 15px; border-top: 3px solid var(--p5-red); border-right: 3px solid var(--p5-red); }
+        .corner.bl { bottom: 15px; left: 15px; border-bottom: 3px solid var(--p5-red); border-left: 3px solid var(--p5-red); }
+        .corner.br { bottom: 15px; right: 15px; border-bottom: 3px solid var(--p5-red); border-right: 3px solid var(--p5-red); }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--p5-black);
+                flex-direction: column;
+                border-top: 2px solid var(--p5-red);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid var(--p5-grey);
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .corner {
+                width: 30px;
+                height: 30px;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            .about-grid {
+                gap: 2rem;
+            }
+
+            .paper-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-text">LOADING...</div>
+    </div>
+
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="bg-line"></div>
+        <div class="bg-line"></div>
+        <div class="bg-line"></div>
+        <div class="bg-line"></div>
+        <div class="bg-line"></div>
+    </div>
+
+    <!-- Corner Decorations -->
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">Y.WANG</a>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="photography.html">Photography</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-shapes">
+            <div class="hero-shape hero-shape-1"></div>
+            <div class="hero-shape hero-shape-2"></div>
+            <div class="hero-shape hero-shape-3"></div>
+            <div class="hero-shape hero-shape-4"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="hero-name">YIFAN WANG</h1>
+            <p class="hero-title">PhD Student in Economics</p>
+            <p class="hero-institution">National University of Singapore</p>
+        </div>
+
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-header">
+                <h2 class="section-title" data-text="ABOUT">ABOUT</h2>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p>
+                        Welcome to my personal website! I am currently a PhD student in Economics at the <strong>National University of Singapore (NUS)</strong>. My research interests span <strong>labor economics</strong>, <strong>immigration</strong>, <strong>international trade</strong>, and <strong>general equilibrium applications</strong>.
+                    </p>
+                    <p>
+                        Previously, I served as a full-time Research Assistant in Economics at the University of Hong Kong, working under the supervision of <a href="https://www.utaschoenberg.com/" target="_blank">Professor Uta Schönberg</a>. With a strong foundation in economic research and a passion for exploring complex economic phenomena, I aim to contribute meaningful insights to the field and address pressing economic challenges through rigorous academic research.
+                    </p>
+                    <a href="CV.pdf" class="cv-link">
+                        <i class="fas fa-file-pdf"></i> Download CV
+                    </a>
+                </div>
+
+                <div class="status-card reveal">
+                    <h3>// CURRENT STATUS</h3>
+                    <div class="status-item">
+                        <span class="status-label">Role</span>
+                        <span class="status-value">PhD Student</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Field</span>
+                        <span class="status-value">Economics</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Institution</span>
+                        <span class="status-value">NUS</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Since</span>
+                        <span class="status-value">2025</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Status</span>
+                        <span class="status-value">ACTIVE</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research">
+            <div class="section-header">
+                <h2 class="section-title" data-text="RESEARCH">RESEARCH</h2>
+            </div>
+
+            <h3 style="font-family: 'Oswald', sans-serif; color: var(--p5-red); font-size: 1.5rem; margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 0.1em;">Working Projects</h3>
+
+            <div class="research-list">
+                <div class="research-item reveal">
+                    <div class="paper-header">
+                        <span class="paper-title">Labor Market Segmentation with Rationed Entry: Theory and Mechanisms</span>
+                        <a href="labor_model.pdf" class="pdf-badge">PDF</a>
+                    </div>
+                    <p class="abstract-text">
+                        <strong>Abstract:</strong> This paper develops a dynamic equilibrium framework to analyze labor market segmentation characterized by rationed premium segments with high returns and entry barriers. We introduce three key innovations: a probability-based entry mechanism, an O-ring type ability aggregator, and dynamic skill evolution through learning-by-doing. The model distinguishes between rationed premium segments and conventional sectors with wage-based clearing, generating equilibrium wage premiums despite excess qualified labor supply.
+                    </p>
+                </div>
+
+                <div class="research-item reveal">
+                    <div class="paper-header">
+                        <span class="paper-title">A General Equilibrium Model for Inventories</span>
+                        <a href="paper_inventory.pdf" class="pdf-badge">PDF</a>
+                    </div>
+                    <p class="abstract-text">
+                        <strong>Abstract:</strong> This paper develops a multi-country, multi-sector production network model incorporating firms' inventory holdings for intermediate and final goods. By fully endogenizing inventory decisions, the model uncovers a unique propagation mechanism for global shocks distinct from international trade channels, while demonstrating isomorphism to other multi-sector models with input-output linkages under certain constraints.
+                    </p>
+                </div>
+
+                <div class="research-item reveal">
+                    <div class="paper-header">
+                        <span class="paper-title">Revisiting Fixed Production Costs: A Modified Micro-to-Macro Model in Multinational Production</span>
+                    </div>
+                    <p class="abstract-text">
+                        <strong>Abstract:</strong> This paper extends the Costinot et al. (2020) framework to incorporate multinational production and Foreign Direct Investment (FDI), developing a comprehensive model for n countries that determines optimal production locations based on blueprint technology. The analysis provides new insights into the interactions between consumption taxation, production subsidies, and the dynamics of international trade and FDI flows.
+                    </p>
+                </div>
+
+                <div class="research-item reveal">
+                    <div class="paper-header">
+                        <span class="paper-title">Tax Competition, Endogenous Taxation and Business Environment</span>
+                    </div>
+                    <p class="abstract-text">
+                        <strong>Abstract:</strong> This thesis extends the Zodrow-Mieszkowski-Wilson (ZMW) model of tax competition by incorporating a transitional corporation and endogenous business environment. The analysis develops static and dynamic models that provide insights into strategic interactions between governments and firms, considering credibility in policy-making and predicting the existence of Nash equilibria under certain conditions.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <div class="section-header">
+                <h2 class="section-title" data-text="EDUCATION">EDUCATION</h2>
+            </div>
+
+            <div class="education-timeline reveal">
+                <div class="education-item">
+                    <div class="education-year">2025 - Present</div>
+                    <div class="education-degree">PhD in Economics</div>
+                    <div class="education-school">National University of Singapore</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="education-year">2022</div>
+                    <div class="education-degree">Honours Degree in Economics</div>
+                    <div class="education-school">The Australian National University</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="education-year">2020</div>
+                    <div class="education-degree">Bachelor of Economics</div>
+                    <div class="education-school">The Australian National University</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications">
+            <div class="section-header">
+                <h2 class="section-title" data-text="PUBLICATIONS">PUBLICATIONS</h2>
+            </div>
+
+            <div class="coming-soon reveal">
+                COMING SOON...
+            </div>
+        </section>
+
+        <!-- Photography Banner -->
+        <div class="photography-banner">
+            <a href="photography.html" class="photography-link">
+                <i class="fas fa-camera"></i> VIEW PHOTOGRAPHY
+            </a>
+        </div>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-header">
+                <h2 class="section-title" data-text="CONTACT">CONTACT</h2>
+            </div>
+
+            <div class="contact-grid reveal">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Email (NUS)</div>
+                        <div class="contact-value"><a href="mailto:e1373170@u.nus.edu">e1373170@u.nus.edu</a></div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Email (Personal)</div>
+                        <div class="contact-value"><a href="mailto:yifan.wang.econ@outlook.com">yifan.wang.econ@outlook.com</a></div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Phone (SG)</div>
+                        <div class="contact-value">+65 83540009</div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Phone (CN)</div>
+                        <div class="contact-value">+86 18912292306</div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">Office</div>
+                        <div class="contact-value">Department of Economics, NUS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 <span>Yifan Wang</span>. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll Reveal Animation
+        const reveals = document.querySelectorAll('.reveal');
+
+        function revealOnScroll() {
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 100;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Nav background on scroll
+        const nav = document.querySelector('.main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                nav.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
