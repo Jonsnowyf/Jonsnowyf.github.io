@@ -8,51 +8,90 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<script>
+  /* Apply the saved theme before first paint, so the page never flashes. */
+  try { var t = localStorage.getItem('yw-theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
 <style>
+  /* ---- Themes -------------------------------------------------------- */
+  :root{                       /* cream (default) */
+    --bg:#fffefb;   --ink:#17150f;   --link:#1b3a5c;  --link-hover:#0f2740;
+    --muted:#4d4738; --faint:#8c8570; --rule:#ddd8c9;  --rule-strong:#221f14;
+    --panel:#f0ece1; --abstract:#35301f;
+    --wrap:820px;
+  }
+  [data-theme="blue"]{
+    --bg:#f5f8fc;   --ink:#101a28;   --link:#143473;  --link-hover:#0c2153;
+    --muted:#3d4f68; --faint:#8496ac; --rule:#d2dce9;  --rule-strong:#143473;
+    --panel:#e4ebf4; --abstract:#26374d;
+  }
+  [data-theme="dark"]{
+    --bg:#23252a;   --ink:#ebe8e2;   --link:#a3bedd;  --link-hover:#c3d6ee;
+    --muted:#a9a49b; --faint:#77736c; --rule:#383b42;  --rule-strong:#55595f;
+    --panel:#2c2f35; --abstract:#cbc7c0;
+  }
+
+  /* ---- Base ---------------------------------------------------------- */
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:#fffefb;color:#17150f;font-family:'EB Garamond',Garamond,Georgia,serif;font-size:18.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{color:#1b3a5c;text-decoration:none}
-  a:hover{color:#0f2740;text-decoration:underline;text-underline-offset:2px}
+  html{scroll-behavior:smooth;background:var(--bg)}
+  body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Garamond,Georgia,serif;font-size:20px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--link);text-decoration:none}
+  a:hover{color:var(--link-hover);text-decoration:underline;text-underline-offset:2px}
   #particles{position:fixed;inset:0;z-index:0;pointer-events:none}
   .page{position:relative;z-index:1;padding:76px 32px 120px}
-  .wrap{max-width:764px;margin:0 auto}
+  .wrap{max-width:var(--wrap);margin:0 auto}
   .masthead{display:flex;gap:34px;align-items:flex-start}
   .masthead>div{flex:1;min-width:0}
-  .portrait{width:138px;height:176px;flex:none;object-fit:cover;background:#f0ece1}
-  h1{font-size:40px;font-weight:500;letter-spacing:-.005em;line-height:1.05}
-  .role{font-size:20px;font-style:italic;color:#4d4738;margin-top:8px}
-  .affil{font-size:17px;color:#4d4738;margin-top:14px;line-height:1.5}
-  .quicklinks{font-size:16.5px;margin-top:14px;line-height:1.55}
-  nav{display:flex;gap:20px;flex-wrap:wrap;margin-top:40px;padding:12px 0;border-top:1px solid #221f14;border-bottom:1px solid #ddd8c9;font-size:17px}
+  .portrait{width:146px;height:186px;flex:none;object-fit:cover;background:var(--panel)}
+  h1{font-size:43px;font-weight:500;letter-spacing:-.005em;line-height:1.05}
+  .role{font-size:21px;font-style:italic;color:var(--muted);margin-top:8px}
+  .affil{font-size:18px;color:var(--muted);margin-top:14px;line-height:1.5}
+  .quicklinks{font-size:17.5px;margin-top:14px;line-height:1.55}
+  nav{display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-top:40px;padding:12px 0;border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule);font-size:18px}
   nav a{opacity:.72;transition:opacity .2s ease}
   nav a:hover{opacity:1}
   nav a.active{opacity:1;font-weight:600}
   section{margin-top:46px;scroll-margin-top:24px}
-  h2{font-size:22px;font-weight:600;letter-spacing:.005em}
-  .rule{height:1px;background:#ddd8c9;margin:10px 0 20px}
-  h3{font-size:18px;font-weight:600;font-style:italic;color:#4d4738}
+  h2{font-size:23px;font-weight:600;letter-spacing:.005em}
+  .rule{height:1px;background:var(--rule);margin:10px 0 20px}
   p+p{margin-top:16px}
   .papers{display:flex;flex-direction:column;gap:22px;margin-top:16px}
-  .paper{display:grid;grid-template-columns:26px 1fr;gap:10px}
-  .num{color:#8c8570}
+  .paper{display:grid;grid-template-columns:28px 1fr;gap:10px}
+  .num{color:var(--faint)}
   .title{font-weight:600;text-wrap:pretty}
-  .meta{font-size:16.5px;color:#4d4738;margin-top:4px}
-  .toggle{cursor:pointer;color:#1b3a5c}
+  .meta{font-size:17.5px;color:var(--muted);margin-top:4px}
+  .toggle{cursor:pointer;color:var(--link)}
   .toggle:hover{text-decoration:underline;text-underline-offset:2px}
-  .abstract{font-size:16.5px;line-height:1.62;color:#35301f;margin-top:10px;padding-left:16px;border-left:1px solid #ddd8c9;text-wrap:pretty}
+  .abstract{font-size:17.5px;line-height:1.62;color:var(--abstract);margin-top:10px;padding-left:16px;border-left:1px solid var(--rule);text-wrap:pretty}
   .abstract[hidden]{display:none}
   .list{display:flex;flex-direction:column;gap:10px}
-  .muted{color:#4d4738}
-  .faint{color:#8c8570}
-  .contact{display:grid;grid-template-columns:96px 1fr;gap:8px 16px;font-size:17.5px}
-  footer{margin-top:64px;padding-top:14px;border-top:1px solid #ddd8c9}
-  footer p{font-size:15.5px;color:#8c8570}
+  .muted{color:var(--muted)}
+  .faint{color:var(--faint)}
+  .contact{display:grid;grid-template-columns:100px 1fr;gap:8px 16px;font-size:18.5px}
+  footer{margin-top:64px;padding-top:14px;border-top:1px solid var(--rule)}
+  footer p{font-size:16px;color:var(--faint)}
   .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
   .reveal.in{opacity:1;transform:none}
+
+  /* ---- Theme switcher ------------------------------------------------ */
+  .themes{margin-left:auto;display:flex;gap:10px;align-items:center}
+  .sw{width:14px;height:14px;border-radius:50%;border:1px solid var(--rule-strong);padding:0;cursor:pointer;
+      background:var(--sw);opacity:.85;transition:opacity .2s ease,box-shadow .2s ease}
+  .sw:hover{opacity:1}
+  .sw[aria-pressed="true"]{opacity:1;box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--muted)}
+  .sw[data-set="cream"]{--sw:#e8e1cf}
+  .sw[data-set="blue"]{--sw:#a8c1e0}
+  .sw[data-set="dark"]{--sw:#23252a}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{transition:none}
+    .reveal{opacity:1;transform:none}
+  }
   @media (max-width:640px){
     .masthead{flex-direction:column;gap:20px}
-    h1{font-size:32px}
+    h1{font-size:34px}
+    .themes{margin-left:0}
     .contact{grid-template-columns:1fr;gap:2px 0}
     .contact div:nth-child(odd){margin-top:10px}
   }
@@ -78,31 +117,33 @@
     <a href="#about">About</a>
     <a href="#research">Research</a>
     <a href="#education">Education</a>
-    <a href="#publications">Publications</a>
     <a href="photography.html">Photography</a>
     <a href="#contact">Contact</a>
+    <div class="themes" role="group" aria-label="Colour theme">
+      <button class="sw" data-set="cream" aria-label="Cream theme"></button>
+      <button class="sw" data-set="blue" aria-label="Blue theme"></button>
+      <button class="sw" data-set="dark" aria-label="Dark theme"></button>
+    </div>
   </nav>
 
   <section id="about" class="reveal">
     <h2>About</h2>
     <div class="rule"></div>
-    <p>Welcome to my personal website! I am currently a PhD student in Economics at the National University of Singapore (NUS). My research interests span labor economics, immigration, international trade, and general equilibrium applications.</p>
-    <p>Previously, I served as a full-time Research Assistant in Economics at the University of Hong Kong, working under the supervision of <a href="https://www.utaschoenberg.com/" target="_blank" rel="noopener">Professor Uta Schönberg</a>. With a strong foundation in economic research and a passion for exploring complex economic phenomena, I aim to contribute meaningful insights to the field and address pressing economic challenges through rigorous academic research.</p>
-    <p>My updated CV can be found <a href="CV.pdf">here</a>.</p>
+    <p>I am a PhD student in Economics at the National University of Singapore. My research interests span labor economics, immigration, international trade, and general equilibrium applications.</p>
+    <p>Previously, I worked as a full-time Research Assistant in Economics at the University of Hong Kong, under the supervision of <a href="https://www.utaschoenberg.com/" target="_blank" rel="noopener">Professor Uta Schönberg</a>.</p>
+    <p>My CV can be found <a href="CV.pdf">here</a>.</p>
   </section>
 
   <section id="research" class="reveal">
     <h2>Research</h2>
     <div class="rule"></div>
-
-    <h3>Working Papers</h3>
     <div class="papers">
       <div class="paper">
         <div class="num">1.</div>
         <div>
           <div class="title">Labor Market Segmentation with Rationed Entry: Theory and Mechanisms</div>
           <p class="meta"><a href="labor_model.pdf">[PDF]</a> &nbsp;<span class="toggle" data-target="abs1">[Abstract]</span></p>
-          <p class="abstract" id="abs1">This paper develops a dynamic equilibrium framework to analyze labor market segmentation characterized by rationed premium segments with high returns and entry barriers. We introduce three key innovations: a probability-based entry mechanism, an O-ring type ability aggregator, and dynamic skill evolution through learning-by-doing. The model distinguishes between rationed premium segments and conventional sectors with wage-based clearing, generating equilibrium wage premiums despite excess qualified labor supply.</p>
+          <p class="abstract" id="abs1" hidden>This paper develops a dynamic equilibrium framework to analyze labor market segmentation characterized by rationed premium segments with high returns and entry barriers. It has three components: a probability-based entry mechanism, an O-ring type ability aggregator, and dynamic skill evolution through learning-by-doing. The model distinguishes between rationed premium segments and conventional sectors with wage-based clearing, generating equilibrium wage premiums despite excess qualified labor supply.</p>
         </div>
       </div>
       <div class="paper">
@@ -113,10 +154,6 @@
           <p class="abstract" id="abs2" hidden>This paper develops a multi-country, multi-sector production network model incorporating firms' inventory holdings for intermediate and final goods. By fully endogenizing inventory decisions, the model uncovers a unique propagation mechanism for global shocks distinct from international trade channels, while demonstrating isomorphism to other multi-sector models with input-output linkages under certain constraints.</p>
         </div>
       </div>
-    </div>
-
-    <h3 style="margin-top:34px">Work in Progress</h3>
-    <div class="papers">
       <div class="paper">
         <div class="num">3.</div>
         <div>
@@ -130,7 +167,7 @@
         <div>
           <div class="title">Tax Competition, Endogenous Taxation and Business Environment</div>
           <p class="meta"><span class="toggle" data-target="abs4">[Abstract]</span></p>
-          <p class="abstract" id="abs4" hidden>This thesis extends the Zodrow-Mieszkowski-Wilson (ZMW) model of tax competition by incorporating a transitional corporation and endogenous business environment. The analysis develops static and dynamic models that provide insights into strategic interactions between governments and firms, considering credibility in policy-making and predicting the existence of Nash equilibria under certain conditions.</p>
+          <p class="abstract" id="abs4" hidden>This paper extends the Zodrow-Mieszkowski-Wilson (ZMW) model of tax competition by incorporating a transitional corporation and endogenous business environment. The analysis develops static and dynamic models that provide insights into strategic interactions between governments and firms, considering credibility in policy-making and predicting the existence of Nash equilibria under certain conditions.</p>
         </div>
       </div>
     </div>
@@ -142,14 +179,7 @@
     <div class="list">
       <p>PhD in Economics, National University of Singapore, <span class="muted">2025 – Present</span></p>
       <p>Honours Degree in Economics, The Australian National University, <span class="muted">2022</span></p>
-      <p>Bachelor of Economics, The Australian National University, <span class="muted">2020</span></p>
     </div>
-  </section>
-
-  <section id="publications" class="reveal">
-    <h2>Publications</h2>
-    <div class="rule"></div>
-    <p class="faint" style="font-style:italic">Coming soon…</p>
   </section>
 
   <section id="contact" class="reveal">
@@ -157,49 +187,27 @@
     <div class="rule"></div>
     <div class="contact">
       <div class="faint">Email</div>
-      <div><a href="mailto:yifan.w@u.nus.edu">yifan.w@u.nus.edu</a>, <a href="mailto:yf_yifanwang@outlook.com">yf_yifanwang@outlook.com</a></div>
-      <div class="faint">Phone</div>
-      <div>+65 8354 0009, +86 189 1229 2306</div>
-      <div class="faint">Office</div>
-      <div>Department of Economics, National University of Singapore</div>
+      <div><a href="mailto:yifan.w@u.nus.edu">yifan.w@u.nus.edu</a></div>
     </div>
   </section>
 
   <footer>
-    <p>&copy; 2024 Yifan Wang. All rights reserved.</p>
+    <p>&copy; 2026 Yifan Wang. All rights reserved.</p>
   </footer>
 
 </div>
 </div>
 
 <script src="particles.min.js"></script>
+<script src="theme.js"></script>
 <script>
 (function () {
-  var ink = '#17150f';
-  if (typeof particlesJS === 'function') {
-    particlesJS('particles', {
-      particles: {
-        number: { value: 34, density: { enable: true, value_area: 1100 } },
-        color: { value: ink },
-        shape: { type: 'circle', stroke: { width: 0, color: ink } },
-        opacity: { value: 0.14, random: true, anim: { enable: true, speed: 0.25, opacity_min: 0.04, sync: false } },
-        size: { value: 2, random: true },
-        line_linked: { enable: true, distance: 165, color: ink, opacity: 0.07, width: 1 },
-        move: { enable: true, speed: 0.4, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
-      },
-      interactivity: {
-        detect_on: 'window',
-        events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: false }, resize: true },
-        modes: { grab: { distance: 130, line_linked: { opacity: 0.22 } } }
-      },
-      retina_detect: true
-    });
-  }
-
   document.querySelectorAll('.toggle').forEach(function (t) {
     t.addEventListener('click', function () {
       var el = document.getElementById(t.getAttribute('data-target'));
-      if (el) el.hidden = !el.hidden;
+      if (!el) return;
+      el.hidden = !el.hidden;
+      t.textContent = el.hidden ? '[Abstract]' : '[Hide]';
     });
   });
 

@@ -7,37 +7,73 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<script>
+  /* Apply the saved theme before first paint, so the page never flashes. */
+  try { var t = localStorage.getItem('yw-theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
 <style>
+  /* ---- Themes (kept in step with index.html) -------------------------- */
+  :root{                       /* cream (default) */
+    --bg:#fffefb;   --ink:#17150f;   --link:#1b3a5c;  --link-hover:#0f2740;
+    --muted:#4d4738; --faint:#8c8570; --rule:#ddd8c9;  --rule-strong:#221f14;
+    --panel:#f0ece1; --scrim:rgba(20,18,12,.94); --scrim-ink:255,254,251;
+  }
+  [data-theme="blue"]{
+    --bg:#f5f8fc;   --ink:#101a28;   --link:#143473;  --link-hover:#0c2153;
+    --muted:#3d4f68; --faint:#8496ac; --rule:#d2dce9;  --rule-strong:#143473;
+    --panel:#e4ebf4; --scrim:rgba(8,16,30,.95); --scrim-ink:245,248,252;
+  }
+  [data-theme="dark"]{
+    --bg:#23252a;   --ink:#ebe8e2;   --link:#a3bedd;  --link-hover:#c3d6ee;
+    --muted:#a9a49b; --faint:#77736c; --rule:#383b42;  --rule-strong:#55595f;
+    --panel:#2c2f35; --scrim:rgba(10,11,13,.96); --scrim-ink:235,232,226;
+  }
+
+  /* ---- Base ---------------------------------------------------------- */
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#fffefb;color:#17150f;font-family:'EB Garamond',Garamond,Georgia,serif;font-size:18.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
-  a{color:#1b3a5c;text-decoration:none}
-  a:hover{color:#0f2740;text-decoration:underline;text-underline-offset:2px}
+  html{background:var(--bg)}
+  body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Garamond,Georgia,serif;font-size:20px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--link);text-decoration:none}
+  a:hover{color:var(--link-hover);text-decoration:underline;text-underline-offset:2px}
   #particles{position:fixed;inset:0;z-index:0;pointer-events:none}
   .page{position:relative;z-index:1;padding:76px 32px 120px}
   .wrap{max-width:1040px;margin:0 auto}
-  h1{font-size:40px;font-weight:500;letter-spacing:-.005em;line-height:1.05}
-  .role{font-size:20px;font-style:italic;color:#4d4738;margin-top:8px}
-  nav{display:flex;gap:20px;flex-wrap:wrap;margin-top:32px;padding:12px 0;border-top:1px solid #221f14;border-bottom:1px solid #ddd8c9;font-size:17px}
+  h1{font-size:43px;font-weight:500;letter-spacing:-.005em;line-height:1.05}
+  .role{font-size:21px;font-style:italic;color:var(--muted);margin-top:8px}
+  nav{display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-top:32px;padding:12px 0;border-top:1px solid var(--rule-strong);border-bottom:1px solid var(--rule);font-size:18px}
   nav a{opacity:.72;transition:opacity .2s ease}
   nav a:hover{opacity:1}
-  .caption{font-size:17px;font-style:italic;color:#8c8570;margin-top:22px}
+  .caption{font-size:18px;font-style:italic;color:var(--faint);margin-top:22px}
   .gallery{margin-top:26px;column-count:3;column-gap:16px}
-  .gallery img{width:100%;display:block;margin-bottom:16px;cursor:zoom-in;background:#f0ece1;transition:opacity .25s ease}
+  .gallery img{width:100%;display:block;margin-bottom:16px;cursor:zoom-in;background:var(--panel);transition:opacity .25s ease}
   .gallery img:hover{opacity:.82}
-  footer{margin-top:48px;padding-top:14px;border-top:1px solid #ddd8c9}
-  footer p{font-size:15.5px;color:#8c8570}
-  #lb{position:fixed;inset:0;z-index:50;background:rgba(20,18,12,.94);display:none;align-items:center;justify-content:center;cursor:zoom-out}
+  footer{margin-top:48px;padding-top:14px;border-top:1px solid var(--rule)}
+  footer p{font-size:16px;color:var(--faint)}
+
+  /* ---- Theme switcher (same markup as index.html) --------------------- */
+  .themes{margin-left:auto;display:flex;gap:10px;align-items:center}
+  .sw{width:14px;height:14px;border-radius:50%;border:1px solid var(--rule-strong);padding:0;cursor:pointer;
+      background:var(--sw);opacity:.85;transition:opacity .2s ease,box-shadow .2s ease}
+  .sw:hover{opacity:1}
+  .sw[aria-pressed="true"]{opacity:1;box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--muted)}
+  .sw[data-set="cream"]{--sw:#e8e1cf}
+  .sw[data-set="blue"]{--sw:#a8c1e0}
+  .sw[data-set="dark"]{--sw:#23252a}
+
+  /* ---- Lightbox ------------------------------------------------------- */
+  #lb{position:fixed;inset:0;z-index:50;background:var(--scrim);display:none;align-items:center;justify-content:center;cursor:zoom-out}
   #lb.on{display:flex}
   #lb img{max-width:88%;max-height:88%;object-fit:contain;box-shadow:0 24px 80px rgba(0,0,0,.5)}
-  #lb .side{position:absolute;top:0;bottom:0;width:22%;display:flex;align-items:center;color:rgba(255,254,251,.5);font-size:40px;user-select:none}
-  #lb .side:hover{color:rgba(255,254,251,.95)}
+  #lb .side{position:absolute;top:0;bottom:0;width:22%;display:flex;align-items:center;color:rgba(var(--scrim-ink),.5);font-size:40px;user-select:none}
+  #lb .side:hover{color:rgba(var(--scrim-ink),.95)}
   #lb .l{left:0;padding-left:26px;cursor:w-resize}
   #lb .r{right:0;justify-content:flex-end;padding-right:26px;cursor:e-resize}
-  #lb .count{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:15px;font-style:italic;color:rgba(255,254,251,.55)}
-  #lb .x{position:absolute;top:18px;right:24px;font-size:30px;line-height:1;color:rgba(255,254,251,.55);cursor:pointer;user-select:none}
-  #lb .x:hover{color:rgba(255,254,251,.95)}
+  #lb .count{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:16px;font-style:italic;color:rgba(var(--scrim-ink),.55)}
+  #lb .x{position:absolute;top:18px;right:24px;font-size:30px;line-height:1;color:rgba(var(--scrim-ink),.55);cursor:pointer;user-select:none}
+  #lb .x:hover{color:rgba(var(--scrim-ink),.95)}
+
   @media (max-width:900px){.gallery{column-count:2}}
-  @media (max-width:600px){.gallery{column-count:1}h1{font-size:32px}}
+  @media (max-width:600px){.gallery{column-count:1}h1{font-size:34px}.themes{margin-left:0}}
 </style>
 </head>
 <body>
@@ -53,8 +89,12 @@
     <a href="index.html#about">About</a>
     <a href="index.html#research">Research</a>
     <a href="index.html#education">Education</a>
-    <a href="index.html#publications">Publications</a>
     <a href="index.html#contact">Contact</a>
+    <div class="themes" role="group" aria-label="Colour theme">
+      <button class="sw" data-set="cream" aria-label="Cream theme"></button>
+      <button class="sw" data-set="blue" aria-label="Blue theme"></button>
+      <button class="sw" data-set="dark" aria-label="Dark theme"></button>
+    </div>
   </nav>
 
   <p class="caption">All photos taken with Fuji XT30 II</p>
@@ -62,7 +102,7 @@
   <div class="gallery" id="gallery"></div>
 
   <footer>
-    <p>&copy; 2024 Yifan Wang. All rights reserved.</p>
+    <p>&copy; 2026 Yifan Wang. All rights reserved.</p>
   </footer>
 </div>
 </div>
@@ -76,31 +116,11 @@
 </div>
 
 <script src="particles.min.js"></script>
+<script src="theme.js"></script>
 <script>
 (function () {
   var ORDER = [1, 12, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 19, 20, 13];
   var TOTAL = ORDER.length, i = -1, savedY = 0;
-  var ink = '#17150f';
-
-  if (typeof particlesJS === 'function') {
-    particlesJS('particles', {
-      particles: {
-        number: { value: 34, density: { enable: true, value_area: 1100 } },
-        color: { value: ink },
-        shape: { type: 'circle', stroke: { width: 0, color: ink } },
-        opacity: { value: 0.14, random: true, anim: { enable: true, speed: 0.25, opacity_min: 0.04, sync: false } },
-        size: { value: 2, random: true },
-        line_linked: { enable: true, distance: 165, color: ink, opacity: 0.07, width: 1 },
-        move: { enable: true, speed: 0.4, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
-      },
-      interactivity: {
-        detect_on: 'window',
-        events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: false }, resize: true },
-        modes: { grab: { distance: 130, line_linked: { opacity: 0.22 } } }
-      },
-      retina_detect: true
-    });
-  }
 
   var gallery = document.getElementById('gallery');
   ORDER.forEach(function (n, idx) {
@@ -117,10 +137,10 @@
   var lbCount = document.getElementById('lb-count');
 
   function show(n) {
+    if (i < 0) savedY = window.scrollY;
     i = (n + TOTAL) % TOTAL;
     lbImg.src = 'photos/' + ORDER[i] + '.jpeg';
     lbCount.textContent = (i + 1) + ' / ' + TOTAL;
-    if (i < 0 || !lb.classList.contains('on')) savedY = window.scrollY;
     lb.classList.add('on');
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';

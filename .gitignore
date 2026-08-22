@@ -1,0 +1,15 @@
+# --- Archived / not published -------------------------------------------
+# Previous version of the site. Kept on disk for reference, kept out of the
+# repo (and therefore off the live GitHub Pages site).
+old/
+
+
+# --- OS / editor cruft ---------------------------------------------------
+.DS_Store
+**/.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# --- Local tooling -------------------------------------------------------
+.claude/settings.local.json
