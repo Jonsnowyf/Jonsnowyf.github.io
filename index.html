@@ -1,520 +1,238 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yifan Wang - Economics PhD Candidate</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <style>
-        /* Import Computer Modern fonts for academic appearance */
-        @import url('https://fonts.googleapis.com/css2?family=Computer+Modern+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-        @import url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css');
-
-        /* Reset and base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Computer Modern Serif', 'Latin Modern Roman', 'Times New Roman', serif;
-            line-height: 1.6;
-            color: #2c2c2c;
-            /* MODIFICATION: Changed from white to transparent to let particles show through */
-            background: transparent;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        /* Particle Container Styling */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1; /* Behind everything */
-            background-color: #f4f7f6; /* Very subtle grey-blue background */
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white; /* Keep the paper look */
-            padding: 0 2rem;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            /* Optional: Add a subtle shadow to make the 'paper' pop off the particles */
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
-        }
-
-        /* Header styling */
-        header {
-            background: #143473;
-            color: white;
-            padding: 3rem 2rem 2rem;
-            text-align: center;
-            margin: -2rem -2rem 3rem -2rem;
-        }
-
-        header h1 {
-            font-family: 'Computer Modern Serif', 'Latin Modern Roman', 'Times New Roman', serif;
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-weight: 300;
-            margin-top: 0.5rem;
-        }
-
-        /* Navigation */
-        nav {
-            background: #f8f9fa;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 0;
-            margin: -3rem -2rem 3rem -2rem;
-        }
-
-        nav ul {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            list-style: none;
-            padding: 0 2rem;
-        }
-
-        nav li {
-            margin: 0;
-        }
-
-        nav a {
-            display: block;
-            padding: 1.2rem 1.8rem;
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        nav a:hover {
-            color: #143473;
-            background: #f1f5f9;
-        }
-
-        nav a:hover::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 30px;
-            height: 2px;
-            background: #143473;
-            transform: translateX(-50%);
-        }
-
-        /* Main content */
-        main {
-            padding: 3rem 0; /* Adjusted padding */
-        }
-
-        section {
-            margin-bottom: 3.5rem;
-        }
-
-        section:last-child {
-            margin-bottom: 2rem;
-        }
-
-        /* Typography */
-        h2 {
-            font-family: 'Computer Modern Serif', 'Latin Modern Roman', 'Times New Roman', serif;
-            font-size: 2.2rem;
-            color: #143473;
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 0.8rem;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background: #143473;
-        }
-
-        h3 {
-            font-family: 'Computer Modern Serif', 'Latin Modern Roman', 'Times New Roman', serif;
-            font-size: 1.3rem;
-            color: #334155;
-            margin-bottom: 1rem;
-            margin-top: 2rem;
-            font-weight: 700;
-        }
-
-        h4 {
-            font-family: 'Computer Modern Serif', 'Latin Modern Roman', 'Times New Roman', serif;
-            font-size: 1.1rem;
-            color: #143473;
-            margin-bottom: 0.8rem;
-            font-weight: 700;
-            line-height: 1.4;
-        }
-
-        p {
-            margin-bottom: 1.2rem;
-            color: #475569;
-            text-align: justify;
-        }
-
-        /* Lists */
-        ul {
-            margin-bottom: 1.5rem;
-        }
-
-        li {
-            margin-bottom: 1rem;
-            color: #475569;
-        }
-
-        section ul li {
-            padding-left: 0;
-        }
-
-        /* Links */
-        a {
-            color: #143473;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        a:hover {
-            color: #143473;
-            text-decoration: underline;
-            text-decoration-color: #143473;
-            text-underline-offset: 3px;
-        }
-
-        /* Research papers special styling */
-        #research h4 {
-            display: flex;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        #research li {
-            margin-bottom: 1rem;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #e0e0e0;
-            list-style: none; /* Ensure no bullets for paper list */
-        }
-
-        #research li:last-child {
-            border-bottom: none;
-        }
-
-        /* Paper title styling for clickable titles */
-        .paper-title {
-            cursor: pointer;
-            color: #143473;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            display: inline-block;
-            font-weight: bold;
-        }
-
-        .paper-title:hover {
-            color: #1e4a7a;
-            border-bottom: 1px solid #143473;
-            transform: translateY(-1px);
-        }
-
-        /* Abstract content styling */
-        .abstract-content {
-            margin-top: 0.5rem;
-            padding: 0.8rem 0;
-            border-left: 3px solid #143473;
-            padding-left: 1rem;
-            background: #f9f9f9;
-            font-size: 0.95rem;
-        }
-
-        .pdf-badge {
-            display: inline-block;
-            font-size: 0.8rem;
-            padding: 2px 6px;
-            border: 1px solid #143473;
-            border-radius: 3px;
-            color: #143473;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
-
-        .pdf-badge:hover {
-            background: #143473;
-            color: white;
-            text-decoration: none;
-        }
-
-        /* Contact section */
-        #contact p {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.8rem;
-        }
-
-        #contact i {
-            margin-right: 15px;
-            width: 20px;
-            text-align: center;
-            color: #143473;
-        }
-
-        /* Footer */
-        footer {
-            background: #143473;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin: 3rem -2rem -2rem -2rem;
-        }
-
-        footer p {
-            opacity: 0.8;
-            margin: 0;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .container {
-                margin: 1rem;
-                border-radius: 12px;
-            }
-
-            header {
-                padding: 2.5rem 2rem 2rem;
-            }
-
-            header h1 {
-                font-size: 2.2rem;
-            }
-
-            main {
-                padding: 2rem;
-            }
-
-            nav ul {
-                flex-wrap: wrap;
-                padding: 0 1rem;
-            }
-
-            nav a {
-                padding: 1rem 1.2rem;
-                font-size: 0.9rem;
-            }
-
-            section {
-                margin-bottom: 2.5rem;
-            }
-
-            h2 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yifan Wang — PhD Student in Economics</title>
+<meta name="description" content="Yifan Wang, PhD student in Economics at the National University of Singapore. Labor economics, immigration, international trade, general equilibrium." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:#fffefb;color:#17150f;font-family:'EB Garamond',Garamond,Georgia,serif;font-size:18.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:#1b3a5c;text-decoration:none}
+  a:hover{color:#0f2740;text-decoration:underline;text-underline-offset:2px}
+  #particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .page{position:relative;z-index:1;padding:76px 32px 120px}
+  .wrap{max-width:764px;margin:0 auto}
+  .masthead{display:flex;gap:34px;align-items:flex-start}
+  .masthead>div{flex:1;min-width:0}
+  .portrait{width:138px;height:176px;flex:none;object-fit:cover;background:#f0ece1}
+  h1{font-size:40px;font-weight:500;letter-spacing:-.005em;line-height:1.05}
+  .role{font-size:20px;font-style:italic;color:#4d4738;margin-top:8px}
+  .affil{font-size:17px;color:#4d4738;margin-top:14px;line-height:1.5}
+  .quicklinks{font-size:16.5px;margin-top:14px;line-height:1.55}
+  nav{display:flex;gap:20px;flex-wrap:wrap;margin-top:40px;padding:12px 0;border-top:1px solid #221f14;border-bottom:1px solid #ddd8c9;font-size:17px}
+  nav a{opacity:.72;transition:opacity .2s ease}
+  nav a:hover{opacity:1}
+  nav a.active{opacity:1;font-weight:600}
+  section{margin-top:46px;scroll-margin-top:24px}
+  h2{font-size:22px;font-weight:600;letter-spacing:.005em}
+  .rule{height:1px;background:#ddd8c9;margin:10px 0 20px}
+  h3{font-size:18px;font-weight:600;font-style:italic;color:#4d4738}
+  p+p{margin-top:16px}
+  .papers{display:flex;flex-direction:column;gap:22px;margin-top:16px}
+  .paper{display:grid;grid-template-columns:26px 1fr;gap:10px}
+  .num{color:#8c8570}
+  .title{font-weight:600;text-wrap:pretty}
+  .meta{font-size:16.5px;color:#4d4738;margin-top:4px}
+  .toggle{cursor:pointer;color:#1b3a5c}
+  .toggle:hover{text-decoration:underline;text-underline-offset:2px}
+  .abstract{font-size:16.5px;line-height:1.62;color:#35301f;margin-top:10px;padding-left:16px;border-left:1px solid #ddd8c9;text-wrap:pretty}
+  .abstract[hidden]{display:none}
+  .list{display:flex;flex-direction:column;gap:10px}
+  .muted{color:#4d4738}
+  .faint{color:#8c8570}
+  .contact{display:grid;grid-template-columns:96px 1fr;gap:8px 16px;font-size:17.5px}
+  footer{margin-top:64px;padding-top:14px;border-top:1px solid #ddd8c9}
+  footer p{font-size:15.5px;color:#8c8570}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (max-width:640px){
+    .masthead{flex-direction:column;gap:20px}
+    h1{font-size:32px}
+    .contact{grid-template-columns:1fr;gap:2px 0}
+    .contact div:nth-child(odd){margin-top:10px}
+  }
+</style>
 </head>
 <body>
+<div id="particles"></div>
 
-<div id="particles-js"></div>
+<div class="page">
+<div class="wrap">
 
-<div class="container">
-    <header>
-        <h1>Yifan Wang</h1>
-        <p>PhD Student in Economics</p>
+  <div class="masthead">
+    <img class="portrait" src="headshot.jpeg" alt="Yifan Wang" />
+    <div>
+      <h1>Yifan Wang</h1>
+      <p class="role">PhD Student in Economics</p>
+      <p class="affil">Department of Economics<br />National University of Singapore</p>
+      <p class="quicklinks"><a href="mailto:yifan.w@u.nus.edu">yifan.w@u.nus.edu</a> &nbsp;·&nbsp; <a href="CV.pdf">CV</a></p>
+    </div>
+  </div>
 
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#research">Research</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="photography.html">Photography</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <nav id="nav">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#education">Education</a>
+    <a href="#publications">Publications</a>
+    <a href="photography.html">Photography</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-    <main>
-        <section id="about">
-            <h2>About Me</h2>
-            <p>
-                Welcome to my personal website! I am currently a PhD student in Economics at the National University of Singapore (NUS). My research interests span labor economics, immigration, international trade, and general equilibrium applications.
-            </p>
-            <p>
-                Previously, I served as a full-time Research Assistant in Economics at the University of Hong Kong, working under the supervision of <a href="https://www.utaschoenberg.com/" target="_blank">Professor Uta Schönberg</a>. With a strong foundation in economic research and a passion for exploring complex economic phenomena, I aim to contribute meaningful insights to the field and address pressing economic challenges through rigorous academic research.
-            </p>
-            <p>
-                My updated CV can be found here. <a href="CV.pdf" class="pdf-badge">[PDF]</a>
-            </p>
+  <section id="about" class="reveal">
+    <h2>About</h2>
+    <div class="rule"></div>
+    <p>Welcome to my personal website! I am currently a PhD student in Economics at the National University of Singapore (NUS). My research interests span labor economics, immigration, international trade, and general equilibrium applications.</p>
+    <p>Previously, I served as a full-time Research Assistant in Economics at the University of Hong Kong, working under the supervision of <a href="https://www.utaschoenberg.com/" target="_blank" rel="noopener">Professor Uta Schönberg</a>. With a strong foundation in economic research and a passion for exploring complex economic phenomena, I aim to contribute meaningful insights to the field and address pressing economic challenges through rigorous academic research.</p>
+    <p>My updated CV can be found <a href="CV.pdf">here</a>.</p>
+  </section>
 
-            <h3>Current Position</h3>
-            <ul>
-                <li>PhD in Economics, National University of Singapore, 2025 - Present</li>
-            </ul>
-        </section>
+  <section id="research" class="reveal">
+    <h2>Research</h2>
+    <div class="rule"></div>
 
-        <section id="research">
-            <h2>Research</h2>
-            <h3>Working Projects</h3>
-            <ul>
-                <li>
-                    <div class="paper-title">Labor Market Segmentation with Rationed Entry: Theory and Mechanisms</div>
-                    <a href="labor_model.pdf" class="pdf-badge">PDF</a>
-                    <div class="abstract-content">
-                        <strong>Abstract:</strong> This paper develops a dynamic equilibrium framework to analyze labor market segmentation characterized by rationed premium segments with high returns and entry barriers. We introduce three key innovations: a probability-based entry mechanism, an O-ring type ability aggregator, and dynamic skill evolution through learning-by-doing. The model distinguishes between rationed premium segments and conventional sectors with wage-based clearing, generating equilibrium wage premiums despite excess qualified labor supply.
-                    </div>
-                </li>
-                <li>
-                    <div class="paper-title">A General Equilibrium Model for Inventories</div>
-                    <a href="paper_inventory.pdf" class="pdf-badge">PDF</a>
-                    <div class="abstract-content">
-                        <strong>Abstract:</strong> This paper develops a multi-country, multi-sector production network model incorporating firms' inventory holdings for intermediate and final goods. By fully endogenizing inventory decisions, the model uncovers a unique propagation mechanism for global shocks distinct from international trade channels, while demonstrating isomorphism to other multi-sector models with input-output linkages under certain constraints.
-                    </div>
-                </li>
-                <li>
-                    <div class="paper-title">Revisiting Fixed Production Costs: A Modified Micro-to-Macro Model in Multinational Production</div>
-                    <div class="abstract-content">
-                        <strong>Abstract:</strong> This paper extends the Costinot et al. (2020) framework to incorporate multinational production and Foreign Direct Investment (FDI), developing a comprehensive model for n countries that determines optimal production locations based on blueprint technology. The analysis provides new insights into the interactions between consumption taxation, production subsidies, and the dynamics of international trade and FDI flows.
-                    </div>
-                </li>
-                <li>
-                    <div class="paper-title">Tax Competition, Endogenous Taxation and Business Environment</div>
-                    <div class="abstract-content">
-                        <strong>Abstract:</strong> This thesis extends the Zodrow-Mieszkowski-Wilson (ZMW) model of tax competition by incorporating a transitional corporation and endogenous business environment. The analysis develops static and dynamic models that provide insights into strategic interactions between governments and firms, considering credibility in policy-making and predicting the existence of Nash equilibria under certain conditions.
-                    </div>
-                </li>
-            </ul>
-        </section>
+    <h3>Working Papers</h3>
+    <div class="papers">
+      <div class="paper">
+        <div class="num">1.</div>
+        <div>
+          <div class="title">Labor Market Segmentation with Rationed Entry: Theory and Mechanisms</div>
+          <p class="meta"><a href="labor_model.pdf">[PDF]</a> &nbsp;<span class="toggle" data-target="abs1">[Abstract]</span></p>
+          <p class="abstract" id="abs1">This paper develops a dynamic equilibrium framework to analyze labor market segmentation characterized by rationed premium segments with high returns and entry barriers. We introduce three key innovations: a probability-based entry mechanism, an O-ring type ability aggregator, and dynamic skill evolution through learning-by-doing. The model distinguishes between rationed premium segments and conventional sectors with wage-based clearing, generating equilibrium wage premiums despite excess qualified labor supply.</p>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="num">2.</div>
+        <div>
+          <div class="title">A General Equilibrium Model for Inventories</div>
+          <p class="meta"><a href="paper_inventory.pdf">[PDF]</a> &nbsp;<span class="toggle" data-target="abs2">[Abstract]</span></p>
+          <p class="abstract" id="abs2" hidden>This paper develops a multi-country, multi-sector production network model incorporating firms' inventory holdings for intermediate and final goods. By fully endogenizing inventory decisions, the model uncovers a unique propagation mechanism for global shocks distinct from international trade channels, while demonstrating isomorphism to other multi-sector models with input-output linkages under certain constraints.</p>
+        </div>
+      </div>
+    </div>
 
-        <section id="education">
-            <h2>Education</h2>
-            <ul>
-                <li>PhD in Economics, National University of Singapore, 2025 - Present</li>
-                <li>Honours Degree in Economics, The Australian National University, 2022</li>
-                <li>Bachelor of Economics, The Australian National University, 2020</li>
-            </ul>
-        </section>
+    <h3 style="margin-top:34px">Work in Progress</h3>
+    <div class="papers">
+      <div class="paper">
+        <div class="num">3.</div>
+        <div>
+          <div class="title">Revisiting Fixed Production Costs: A Modified Micro-to-Macro Model in Multinational Production</div>
+          <p class="meta"><span class="toggle" data-target="abs3">[Abstract]</span></p>
+          <p class="abstract" id="abs3" hidden>This paper extends the Costinot et al. (2020) framework to incorporate multinational production and Foreign Direct Investment (FDI), developing a comprehensive model for n countries that determines optimal production locations based on blueprint technology. The analysis provides new insights into the interactions between consumption taxation, production subsidies, and the dynamics of international trade and FDI flows.</p>
+        </div>
+      </div>
+      <div class="paper">
+        <div class="num">4.</div>
+        <div>
+          <div class="title">Tax Competition, Endogenous Taxation and Business Environment</div>
+          <p class="meta"><span class="toggle" data-target="abs4">[Abstract]</span></p>
+          <p class="abstract" id="abs4" hidden>This thesis extends the Zodrow-Mieszkowski-Wilson (ZMW) model of tax competition by incorporating a transitional corporation and endogenous business environment. The analysis develops static and dynamic models that provide insights into strategic interactions between governments and firms, considering credibility in policy-making and predicting the existence of Nash equilibria under certain conditions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <section id="publications">
-            <h2>Publications</h2>
-            <p>Coming soon...</p>
-        </section>
+  <section id="education" class="reveal">
+    <h2>Education</h2>
+    <div class="rule"></div>
+    <div class="list">
+      <p>PhD in Economics, National University of Singapore, <span class="muted">2025 – Present</span></p>
+      <p>Honours Degree in Economics, The Australian National University, <span class="muted">2022</span></p>
+      <p>Bachelor of Economics, The Australian National University, <span class="muted">2020</span></p>
+    </div>
+  </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
-            <div class="contact-info">
-                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:yifan.w@u.nus.edu">yifan.w@u.nus.edu</a></p>
-                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:yf_yifanwang@outlook.com">yf_yifanwang@outlook.com</a></p>
-                <p><i class="fas fa-phone"></i> Phone: +65 83540009</p>
-                <p><i class="fas fa-phone"></i> Phone: +86 18912292306</p>
-                <p><i class="fas fa-map-marker-alt"></i> Office: Department of Economics, National University of Singapore</p>
-            </div>
-        </section>
-    </main>
+  <section id="publications" class="reveal">
+    <h2>Publications</h2>
+    <div class="rule"></div>
+    <p class="faint" style="font-style:italic">Coming soon…</p>
+  </section>
 
-    <footer>
-        <p>&copy; 2024 Yifan Wang. All rights reserved.</p>
-    </footer>
+  <section id="contact" class="reveal">
+    <h2>Contact</h2>
+    <div class="rule"></div>
+    <div class="contact">
+      <div class="faint">Email</div>
+      <div><a href="mailto:yifan.w@u.nus.edu">yifan.w@u.nus.edu</a>, <a href="mailto:yf_yifanwang@outlook.com">yf_yifanwang@outlook.com</a></div>
+      <div class="faint">Phone</div>
+      <div>+65 8354 0009, +86 189 1229 2306</div>
+      <div class="faint">Office</div>
+      <div>Department of Economics, National University of Singapore</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Yifan Wang. All rights reserved.</p>
+  </footer>
+
+</div>
 </div>
 
-<script src="js/particles.min.js"></script>
+<script src="particles.min.js"></script>
 <script>
-    /* Particles.js Configuration - Optimized for Academic Theme */
-    particlesJS('particles-js', {
-        "particles": {
-            "number": {
-                "value": 60, /* Not too crowded */
-                "density": {
-                    "enable": true,
-                    "value_area": 800
-                }
-            },
-            "color": {
-                "value": "#143473" /* Match the Header Blue */
-            },
-            "shape": {
-                "type": "circle",
-                "stroke": {
-                    "width": 0,
-                    "color": "#000000"
-                }
-            },
-            "opacity": {
-                "value": 0.2, /* Very subtle opacity */
-                "random": false
-            },
-            "size": {
-                "value": 3,
-                "random": true
-            },
-            "line_linked": {
-                "enable": true,
-                "distance": 150,
-                "color": "#143473", /* Match the Header Blue */
-                "opacity": 0.15, /* Subtle lines */
-                "width": 1
-            },
-            "move": {
-                "enable": true,
-                "speed": 1.5, /* Slow, calm movement */
-                "direction": "none",
-                "random": false,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false
-            }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": {
-                    "enable": true,
-                    "mode": "grab" /* Connects lines on hover */
-                },
-                "onclick": {
-                    "enable": false /* Disable click effect for professionalism */
-                },
-                "resize": true
-            },
-            "modes": {
-                "grab": {
-                    "distance": 140,
-                    "line_linked": {
-                        "opacity": 0.5
-                    }
-                }
-            }
-        },
-        "retina_detect": true
+(function () {
+  var ink = '#17150f';
+  if (typeof particlesJS === 'function') {
+    particlesJS('particles', {
+      particles: {
+        number: { value: 34, density: { enable: true, value_area: 1100 } },
+        color: { value: ink },
+        shape: { type: 'circle', stroke: { width: 0, color: ink } },
+        opacity: { value: 0.14, random: true, anim: { enable: true, speed: 0.25, opacity_min: 0.04, sync: false } },
+        size: { value: 2, random: true },
+        line_linked: { enable: true, distance: 165, color: ink, opacity: 0.07, width: 1 },
+        move: { enable: true, speed: 0.4, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+      },
+      interactivity: {
+        detect_on: 'window',
+        events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: false }, resize: true },
+        modes: { grab: { distance: 130, line_linked: { opacity: 0.22 } } }
+      },
+      retina_detect: true
     });
-</script>
+  }
 
+  document.querySelectorAll('.toggle').forEach(function (t) {
+    t.addEventListener('click', function () {
+      var el = document.getElementById(t.getAttribute('data-target'));
+      if (el) el.hidden = !el.hidden;
+    });
+  });
+
+  var revealables = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.06 });
+    revealables.forEach(function (el) { io.observe(el); });
+  } else {
+    revealables.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  var links = Array.prototype.filter.call(
+    document.querySelectorAll('#nav a'),
+    function (a) { return a.getAttribute('href').charAt(0) === '#'; }
+  );
+  function mark() {
+    var probe = window.scrollY + window.innerHeight * 0.28;
+    var current = links[0];
+    links.forEach(function (a) {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (t && t.getBoundingClientRect().top + window.scrollY <= probe) current = a;
+    });
+    links.forEach(function (a) { a.classList.toggle('active', a === current); });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+})();
+</script>
 </body>
 </html>
