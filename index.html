@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Yifan Wang — PhD Student in Economics</title>
-<meta name="description" content="Yifan Wang, PhD student in Economics at the National University of Singapore. Labor economics, immigration, international trade, general equilibrium." />
+<meta name="description" content="Yifan Wang, PhD student in Economics at the National University of Singapore. Misallocation and distortions: labor, cognition, capital, and how they show up in aggregates." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
@@ -56,8 +56,7 @@
   .rule{height:1px;background:var(--rule);margin:10px 0 20px}
   p+p{margin-top:16px}
   .papers{display:flex;flex-direction:column;gap:22px;margin-top:16px}
-  .paper{display:grid;grid-template-columns:28px 1fr;gap:10px}
-  .num{color:var(--faint)}
+  .paper{display:block}
   .title{font-weight:600;text-wrap:pretty}
   .meta{font-size:17.5px;color:var(--muted);margin-top:4px}
   .toggle{cursor:pointer;color:var(--link)}
@@ -65,6 +64,10 @@
   .abstract{font-size:17.5px;line-height:1.62;color:var(--abstract);margin-top:10px;padding-left:16px;border-left:1px solid var(--rule);text-wrap:pretty}
   .abstract[hidden]{display:none}
   .list{display:flex;flex-direction:column;gap:10px}
+  .sub{font-size:16.5px;color:var(--muted);margin-top:6px;padding-left:18px;border-left:1px solid var(--rule);line-height:1.55}
+  .quote{margin-top:46px;padding-left:24px;border-left:2px solid var(--rule)}
+  .quote p{font-size:22px;font-style:italic;line-height:1.5;color:var(--muted);text-wrap:pretty}
+  .quote cite{display:block;margin-top:12px;font-size:16px;font-style:normal;color:var(--faint)}
   .muted{color:var(--muted)}
   .faint{color:var(--faint)}
   .contact{display:grid;grid-template-columns:100px 1fr;gap:8px 16px;font-size:18.5px}
@@ -129,45 +132,41 @@
   <section id="about" class="reveal">
     <h2>About</h2>
     <div class="rule"></div>
-    <p>I am a PhD student in Economics at the National University of Singapore. My research interests span labor economics, immigration, international trade, and general equilibrium applications.</p>
-    <p>Previously, I worked as a full-time Research Assistant in Economics at the University of Hong Kong, under the supervision of <a href="https://www.utaschoenberg.com/" target="_blank" rel="noopener">Professor Uta Schönberg</a>.</p>
+    <p>I am a PhD student in Economics at the National University of Singapore. My fields are macroeconomics, labor economics, and international trade. Most of my work is about misallocation and what it leaves behind in the aggregate, in three settings: rationed entry in labor markets, the division of labor inside firms, and local government finance in China.</p>
+    <p>Before Singapore I was a full-time research assistant at the University of Hong Kong, for <a href="https://www.utaschoenberg.com/" target="_blank" rel="noopener">Prof Uta Sch&ouml;nberg</a> and <a href="https://pweb.fbe.hku.hk/~sunc/" target="_blank" rel="noopener">Prof Chang Sun</a>.</p>
     <p>My CV can be found <a href="CV.pdf">here</a>.</p>
-  </section>
+</section>
 
   <section id="research" class="reveal">
     <h2>Research</h2>
     <div class="rule"></div>
     <div class="papers">
       <div class="paper">
-        <div class="num">1.</div>
         <div>
-          <div class="title">Labor Market Segmentation with Rationed Entry: Theory and Mechanisms</div>
-          <p class="meta"><a href="labor_model.pdf">[PDF]</a> &nbsp;<span class="toggle" data-target="abs1">[Abstract]</span></p>
-          <p class="abstract" id="abs1" hidden>This paper develops a dynamic equilibrium framework to analyze labor market segmentation characterized by rationed premium segments with high returns and entry barriers. It has three components: a probability-based entry mechanism, an O-ring type ability aggregator, and dynamic skill evolution through learning-by-doing. The model distinguishes between rationed premium segments and conventional sectors with wage-based clearing, generating equilibrium wage premiums despite excess qualified labor supply.</p>
+          <div class="title">Frictions Between Tasks: Metered Cognition and the Division of Labor</div>
+          <p class="meta"><span class="toggle" data-target="abs1">[Hide]</span></p>
+          <p class="abstract" id="abs1">A project is a continuum of ordered tasks that all have to be done, so the margin is not how much of each task to buy but who covers which. Two costs sit at the boundary between tasks: what a worker pays for the training she lacks, and what a pair pays to hand work across. Cheap metered cognition compresses both, at different rates, and team size depends on the two only through their ratio. A within-task gain therefore moves output without moving organization, while a boundary gain moves both &mdash; the two channels are indistinguishable in aggregates and opposite in organization. Teams dissolve while a prerequisite is still twice as expensive as a handoff.</p>
         </div>
       </div>
       <div class="paper">
-        <div class="num">2.</div>
+        <div>
+          <div class="title">Understanding China&rsquo;s Housing Boom and Collapse: A Self-Limiting Cycle of Local Government Debt Financing</div>
+          <p class="meta">with <a href="https://changao1.github.io/" target="_blank" rel="noopener">Chang Gao</a> &nbsp;&middot;&nbsp; <span class="toggle" data-target="abs4">[Hide]</span></p>
+          <p class="abstract" id="abs4">LGFV issuance spreads rise with local government leverage &mdash; under OLS, under a predetermined maturity-rollover instrument, and under the 2015 central-government debt swap. Housing-price growth is hump-shaped in leverage and turns negative past 18&ndash;23% of GDP. We read these patterns through a general-equilibrium model in which a leverage-dependent financial friction creates a debt threshold beyond which infrastructure investment collapses, so the bust needs no exogenous shock.</p>
+        </div>
+      </div>
+      <div class="paper">
+        <div>
+          <div class="title">Labor Market Segmentation with Rationed Entry</div>
+          <p class="meta"><a href="segmentation_slides.pdf">[Slides]</a> &nbsp;<span class="toggle" data-target="abs2">[Hide]</span></p>
+          <p class="abstract" id="abs2">Some sectors pay a premium and ration entry instead of clearing on wages. This paper puts a probability-based entry rule and an O-ring ability aggregator into a dynamic equilibrium in which skill evolves through learning-by-doing. Wage premia survive even when qualified labor is in excess supply, and a spell in the wrong sector can be worth taking for the sector-specific human capital it builds.</p>
+        </div>
+      </div>
+      <div class="paper">
         <div>
           <div class="title">A General Equilibrium Model for Inventories</div>
-          <p class="meta"><a href="paper_inventory.pdf">[PDF]</a> &nbsp;<span class="toggle" data-target="abs2">[Abstract]</span></p>
-          <p class="abstract" id="abs2" hidden>This paper develops a multi-country, multi-sector production network model incorporating firms' inventory holdings for intermediate and final goods. By fully endogenizing inventory decisions, the model uncovers a unique propagation mechanism for global shocks distinct from international trade channels, while demonstrating isomorphism to other multi-sector models with input-output linkages under certain constraints.</p>
-        </div>
-      </div>
-      <div class="paper">
-        <div class="num">3.</div>
-        <div>
-          <div class="title">Revisiting Fixed Production Costs: A Modified Micro-to-Macro Model in Multinational Production</div>
-          <p class="meta"><span class="toggle" data-target="abs3">[Abstract]</span></p>
-          <p class="abstract" id="abs3" hidden>This paper extends the Costinot et al. (2020) framework to incorporate multinational production and Foreign Direct Investment (FDI), developing a comprehensive model for n countries that determines optimal production locations based on blueprint technology. The analysis provides new insights into the interactions between consumption taxation, production subsidies, and the dynamics of international trade and FDI flows.</p>
-        </div>
-      </div>
-      <div class="paper">
-        <div class="num">4.</div>
-        <div>
-          <div class="title">Tax Competition, Endogenous Taxation and Business Environment</div>
-          <p class="meta"><span class="toggle" data-target="abs4">[Abstract]</span></p>
-          <p class="abstract" id="abs4" hidden>This paper extends the Zodrow-Mieszkowski-Wilson (ZMW) model of tax competition by incorporating a transitional corporation and endogenous business environment. The analysis develops static and dynamic models that provide insights into strategic interactions between governments and firms, considering credibility in policy-making and predicting the existence of Nash equilibria under certain conditions.</p>
+          <p class="meta"><span class="toggle" data-target="abs3">[Hide]</span></p>
+          <p class="abstract" id="abs3">Firms in a multi-country, multi-sector production network hold inventories of intermediate and final goods. Endogenizing that choice gives global shocks a propagation channel separate from trade itself. Under restrictions the economy is isomorphic to standard multi-sector models with input-output linkages.</p>
         </div>
       </div>
     </div>
@@ -177,8 +176,10 @@
     <h2>Education</h2>
     <div class="rule"></div>
     <div class="list">
-      <p>PhD in Economics, National University of Singapore, <span class="muted">2025 – Present</span></p>
-      <p>Honours Degree in Economics, The Australian National University, <span class="muted">2022</span></p>
+      <p>PhD in Economics, National University of Singapore, <span class="muted">2025 &ndash; Present</span></p>
+      <div>
+        <p>BA in Economics (Honours Degree), The Australian National University, <span class="muted">2022</span></p>
+      </div>
     </div>
   </section>
 
